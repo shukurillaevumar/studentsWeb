@@ -1,15 +1,27 @@
 import { useState } from 'react';
 import {Form, FormGroup, Input, Label, Button} from 'reactstrap';
+import { v4 as uuidv4 } from 'uuid';
 
-const Header = ({add}) => {
-    const [user, setUser] = useState({});
+const Header = (props) => {
     const [name, setName] = useState("");
     const [classNum, setClassNum] = useState(0);
     const [phone, setPhoneNum] = useState("");
     const [birthDate, setBirthDate] = useState("");
 
-    function saveUser () {
-        setUser({name, classNum, phone, birthDate})
+    function saveUser (e) {
+      e.preventDefault();
+        const user = {
+            id: uuidv4(),
+            name,
+            classNum,
+            phone,
+            birthDate
+        }
+      props.add(user);
+      setName("");
+      setClassNum(0);
+      setPhoneNum("");
+      setBirthDate("");
     }
     return (
     <div className='header'>
@@ -33,9 +45,11 @@ const Header = ({add}) => {
       <Input
         id="class"
         name="class"
-        placeholder="Course"
+        placeholder="Class"
         type="number"
         value={classNum}
+        min={1}
+        max={11}
         onChange={e => setClassNum(e.target.value)}
       />
       <Label for="class">

@@ -1,6 +1,6 @@
 import {Button, Table} from 'reactstrap';
 
-const TableComp = (students) => {
+const TableComp = ({students, remove}) => {
     return (
     <div className='table'>
     <Table bordered responsive hover striped size='sm'>
@@ -30,13 +30,13 @@ const TableComp = (students) => {
     {students.map((student, index) => (
         <tr key={index}>
         <th scope="row">
-          1
+          {index}
         </th>
         <td>
         {student.name}
         </td>
         <td>
-        {student.class}
+        {student.classNum}
         </td>
         <td>
         {student.phone}
@@ -45,8 +45,8 @@ const TableComp = (students) => {
         {student.birthDate}
         </td>
         <td className="btnBox">
-          <Button color='success'>Edit</Button>
-          <Button color='danger'>Delete</Button>
+          {/* <Button color='success'>Edit</Button> */}
+          <Button onClick={() => remove(student.id)} color='danger'>Delete</Button>
         </td>
       </tr>
     ))}
